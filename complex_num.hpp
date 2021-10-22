@@ -7,10 +7,10 @@
 template<typename T>
 class Complex {
 private:
-
-public:
     T re; // Real part
     T im; // Imaginary part
+
+public:
     //CONSTRUCTOR
 
     Complex(); // construction with no argument. (0+0i)
