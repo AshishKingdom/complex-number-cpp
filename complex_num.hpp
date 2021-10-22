@@ -227,6 +227,9 @@ Complex<T> Complex<T>::operator/ (const T n) {
 
 template <typename T>
 Complex<T> Complex<T>::operator/ (Complex<T>& z) {
+    if(z.re==0 && z.im==0) {
+        std::cerr<<"Complex<T>::operator/ - ERROR: Division by zero";
+    } 
     Complex<T> z_final;
     z_final = ((*this)*(z.conjugate()))/pow(z.mod(), 2);
     return z_final;
