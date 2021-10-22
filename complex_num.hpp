@@ -32,8 +32,8 @@ public:
 
     // //OPERATORS
 
-    Complex<T>& operator = (const T re); 
-    Complex<T>& operator = (const Complex<T>& z);
+    Complex<T>& operator= (const T re); 
+    Complex<T>& operator= (const Complex<T>& z);
     // void operator += (const T re);
     // void operator += (const Complex<T>& z);
     // void operator -= (const T re);
@@ -43,7 +43,7 @@ public:
     // void operator /= (const T re);
     // void operator /= (const Complex<T>& z);
 
-    friend std::ostream& operator << (std::ostream& out, const Complex<T>& z) {
+    friend std::ostream& operator<< (std::ostream& out, const Complex<T>& z) {
         if(z.im>=0) {
             out<<z.re<<" + "<<z.im<<"i";
         } else {
@@ -52,10 +52,14 @@ public:
         return out;
     }
 
-    // friend Complex<T> operator + (const Complex<T>& z1, const Complex<T>& z2);
-    // friend Complex<T> operator - (const Complex<T>& z1, const Complex<T>& z2);
-    // friend Complex<T> operator * (const Complex<T>& z1, const Complex<T>& z2);
-    // friend Complex<T> operator / (const Complex<T>& z1, const Complex<T>& z2);
+    Complex<T> operator+ (const Complex<T>& z); // addition with another complex number
+    Complex<T> operator+ (const T n); //addition with real number
+    Complex<T> operator- (const Complex<T>& z); // subtraction with another complex number
+    Complex<T> operator- (const T n); //subtraction with real number
+    Complex<T> operator* (const Complex<T>& z); // multiplication with another complex number
+    Complex<T> operator* (const T n); //multiplication with real number
+    Complex<T> operator/ (Complex<T>& z); // division with another complex number
+    Complex<T> operator/ (const T n); //division with real number
     // friend bool operator== (const Complex<T>& z1, const Complex<T>& z2);
     // friend bool operator!= (const Complex<T>& z1, const Complex<T>& z2);
 
@@ -116,7 +120,7 @@ double Complex<T>::arg () {
     double PI = 3.14159265358979323;
     if(this->re==0) {
         if(this->im==0) {
-            std::cout<<"double Complex<T>::arg() - ERROR, 0/0";
+            std::cerr<<"double Complex<T>::arg() - ERROR, 0/0";
         }
         if(this->im>0) {
             return PI/2.0;
@@ -157,6 +161,7 @@ Complex<T> Complex<T>::power (const int n) {
 
 // OPERATORS
 
+/* ASSIGNEMENT */
 template <typename T>
 Complex<T>& Complex<T>::operator= (const T re) {
     this->re = re;
@@ -169,5 +174,61 @@ Complex<T>& Complex<T>::operator= (const Complex<T>& z) {
     this->re = z.re;
     this->im = z.im;
     return *this;
+}
+
+/* ADDITION */
+template <typename T>
+Complex<T> Complex<T>::operator+ (const T n) {
+    Complex<T> z_final{this->re + n, this->im};
+    return z_final;
+}
+
+template <typename T>
+Complex<T> Complex<T>::operator+ (const Complex<T>& z) {
+    Complex<T> z_final{this->re + z.re, this->im + z.im};
+    return z_final;
+}
+
+/* SUBTRACTION */
+template <typename T>
+Complex<T> Complex<T>::operator- (const T n) {
+    Complex<T> z_final{this->re - n, this->im};
+    return z_final;
+}
+
+template <typename T>
+Complex<T> Complex<T>::operator- (const Complex<T>& z) {
+    Complex<T> z_final{this->re - z.re, this->im - z.im};
+    return z_final;
+}
+
+/* MULTIPLICATION */
+template <typename T>
+Complex<T> Complex<T>::operator* (const T n) {
+    Complex<T> z_final{this->re * n, this->im * n};
+    return z_final;
+}
+
+template <typename T>
+Complex<T> Complex<T>::operator* (const Complex<T>& z) {
+    Complex<T> z_final{this->re * z.re - this->im * z.im, this->re * z.im + this->im * z.re};
+    return z_final;
+}
+
+/* DIVISION */
+template <typename T>
+Complex<T> Complex<T>::operator/ (const T n) {
+    if(n==0){
+        std::cerr<<"Complex<T>::operator/ - ERROR: Division by zero";
+    }
+    Complex<T> z_final{this->re / n, this->im / n};
+    return z_final;
+}
+
+template <typename T>
+Complex<T> Complex<T>::operator/ (Complex<T>& z) {
+    Complex<T> z_final;
+    z_final = ((*this)*(z.conjugate()))/pow(z.mod(), 2);
+    return z_final;
 }
 #endif
