@@ -29,7 +29,7 @@ public:
     // Let z be a complex number
 
     Complex<T> conjugate(); //returns x - iy if z = x + iy
-    double mod(); //returns square_root(x*x + y*y) if z = x + iy
+    double mag(); //returns square_root(x*x + y*y) if z = x + iy
     double arg(); //returns argument of complex number z. (angle made by it with real-axis on complex plane)
     Complex<T> power(const int n); //returns z^n
     T real(); //returns x if z = x + iy
@@ -118,7 +118,7 @@ Complex<T> Complex<T>::conjugate () {
 }
 
 template <typename T>
-double Complex<T>::mod () {
+double Complex<T>::mag () {
     return sqrt(pow(this->re, 2) + pow(this->im, 2));
 }
 
@@ -157,7 +157,7 @@ double Complex<T>::arg () {
 
 template <typename T>
 Complex<T> Complex<T>::power (const int n) {
-    double r = this->mod(); //magnitude
+    double r = this->mag(); //magnitude
     double a = this->arg();  // angle
     // z = x + iy can be re-written as r(e^ia) = r*cos(a)+i*r*sin(a)
     Complex<T> z1;
@@ -238,7 +238,7 @@ Complex<T> Complex<T>::operator/ (Complex<T>& z) {
         std::cerr << "Complex<T>::operator/ - ERROR: Division by zero";
     }
     Complex<T> z_final;
-    z_final = ((*this) * (z.conjugate())) / pow(z.mod(), 2);
+    z_final = ((*this) * (z.conjugate())) / pow(z.mag(), 2);
     return z_final;
 }
 
@@ -320,7 +320,7 @@ Complex<T>& Complex<T>::operator/= (const T n) {
 
 template <typename T>
 Complex<T>& Complex<T>::operator/= (Complex<T>& z) {
-    double mag = pow(z.mod(), 2);
+    double mag = pow(z.mag(), 2);
     T re_part, im_part;
     re_part = (this->re * z.re + this->im * z.im) / mag;
     im_part = (this->im * z.re - this->re * z.im) / mag;
