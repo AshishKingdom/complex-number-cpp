@@ -60,8 +60,10 @@ public:
     Complex<T> operator* (const T n); //multiplication with real number
     Complex<T> operator/ (Complex<T>& z); // division with another complex number
     Complex<T> operator/ (const T n); //division with real number
-    // friend bool operator== (const Complex<T>& z1, const Complex<T>& z2);
-    // friend bool operator!= (const Complex<T>& z1, const Complex<T>& z2);
+    bool operator== (const Complex<T>& z); // == operator with another complex number
+    bool operator== (const T n); // == operator with real number
+    bool operator!= (const Complex<T>& z); // != operator with another complex number
+    bool operator!= (const T n); // != operator with real number
 
 };
 
@@ -233,5 +235,27 @@ Complex<T> Complex<T>::operator/ (Complex<T>& z) {
     Complex<T> z_final;
     z_final = ((*this)*(z.conjugate()))/pow(z.mod(), 2);
     return z_final;
+}
+
+/* == OPERATOR */
+template <typename T>
+bool Complex<T>::operator== (const T n) {
+    return ((this->re==n) && (this->im==0));
+}
+
+template <typename T>
+bool Complex<T>::operator== (const Complex<T>& z) {
+    return ((this->re==z.re) && (this->im==z.im));
+}
+
+/* != OPERATOR */
+template <typename T>
+bool Complex<T>::operator!= (const T n) {
+    return !((*this)==n);
+}
+
+template <typename T>
+bool Complex<T>::operator!= (const Complex<T>& z) {
+    return !((*this)==z);
 }
 #endif
