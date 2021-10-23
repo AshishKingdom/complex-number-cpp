@@ -1,5 +1,10 @@
+/*
+    Complex Number Library in C++
+    @Author: AshishKingdom (Ashish Kushwaha)
+*/
+
 #ifndef COMPLEX_NUM_HPP
-    #define COMPLEX_NUM_HPP
+#define COMPLEX_NUM_HPP
 
 #include <iostream>
 #include <cmath>
@@ -20,7 +25,7 @@ public:
     ~Complex();
 
     //FUNCTIONS
-    
+
     // Let z be a complex number
 
     Complex<T> conjugate(); //returns x - iy if z = x + iy
@@ -32,22 +37,22 @@ public:
 
     // //OPERATORS
 
-    Complex<T>& operator= (const T re); 
+    Complex<T>& operator= (const T re);
     Complex<T>& operator= (const Complex<T>& z);
-    // void operator += (const T re);
-    // void operator += (const Complex<T>& z);
-    // void operator -= (const T re);
-    // void operator -= (const Complex<T>& z);
-    // void operator *= (const T re);
-    // void operator *= (const Complex<T>& z);
-    // void operator /= (const T re);
-    // void operator /= (const Complex<T>& z);
+    Complex<T>& operator += (const T n);
+    Complex<T>& operator += (const Complex<T>& z);
+    Complex<T>& operator -= (const T n);
+    Complex<T>& operator -= (const Complex<T>& z);
+    Complex<T>& operator *= (const T n);
+    Complex<T>& operator *= (const Complex<T>& z);
+    Complex<T>& operator /= (const T n);
+    Complex<T>& operator /= (Complex<T>& z);
 
     friend std::ostream& operator<< (std::ostream& out, const Complex<T>& z) {
-        if(z.im>=0) {
-            out<<z.re<<" + "<<z.im<<"i";
+        if (z.im >= 0) {
+            out << z.re << " + " << z.im << "i";
         } else {
-            out<<z.re<<" - "<<-z.im<<"i";
+            out << z.re << " - " << -z.im << "i";
         }
         return out;
     }
@@ -120,32 +125,32 @@ double Complex<T>::mod () {
 template <typename T>
 double Complex<T>::arg () {
     double PI = 3.14159265358979323;
-    if(this->re==0) {
-        if(this->im==0) {
-            std::cerr<<"double Complex<T>::arg() - ERROR, 0/0";
+    if (this->re == 0) {
+        if (this->im == 0) {
+            std::cerr << "double Complex<T>::arg() - ERROR, 0/0";
         }
-        if(this->im>0) {
-            return PI/2.0;
+        if (this->im > 0) {
+            return PI / 2.0;
         } else {
-            return -PI/2.0;
+            return -PI / 2.0;
         }
     }
-    double ang = atan(abs(this->im/this->re));
-    if(this->im>0) {
-        if(this->re>0) {
+    double ang = atan(abs(this->im / this->re));
+    if (this->im > 0) {
+        if (this->re > 0) {
             // 1st Quadrant
             return ang;
         } else {
             // 2nd Quadrant
-            return (PI-ang);
+            return (PI - ang);
         }
     } else {
-        if(this->re>0) {
+        if (this->re > 0) {
             // 4th Quadrant
             return -ang;
         } else {
             // 3rd Quadrant
-            return -(PI-ang);
+            return -(PI - ang);
         }
     }
 }
@@ -220,8 +225,8 @@ Complex<T> Complex<T>::operator* (const Complex<T>& z) {
 /* DIVISION */
 template <typename T>
 Complex<T> Complex<T>::operator/ (const T n) {
-    if(n==0){
-        std::cerr<<"Complex<T>::operator/ - ERROR: Division by zero";
+    if (n == 0) {
+        std::cerr << "Complex<T>::operator/ - ERROR: Division by zero";
     }
     Complex<T> z_final{this->re / n, this->im / n};
     return z_final;
@@ -229,33 +234,98 @@ Complex<T> Complex<T>::operator/ (const T n) {
 
 template <typename T>
 Complex<T> Complex<T>::operator/ (Complex<T>& z) {
-    if(z.re==0 && z.im==0) {
-        std::cerr<<"Complex<T>::operator/ - ERROR: Division by zero";
-    } 
+    if (z.re == 0 && z.im == 0) {
+        std::cerr << "Complex<T>::operator/ - ERROR: Division by zero";
+    }
     Complex<T> z_final;
-    z_final = ((*this)*(z.conjugate()))/pow(z.mod(), 2);
+    z_final = ((*this) * (z.conjugate())) / pow(z.mod(), 2);
     return z_final;
 }
 
 /* == OPERATOR */
 template <typename T>
 bool Complex<T>::operator== (const T n) {
-    return ((this->re==n) && (this->im==0));
+    return ((this->re == n) && (this->im == 0));
 }
 
 template <typename T>
 bool Complex<T>::operator== (const Complex<T>& z) {
-    return ((this->re==z.re) && (this->im==z.im));
+    return ((this->re == z.re) && (this->im == z.im));
 }
 
 /* != OPERATOR */
 template <typename T>
 bool Complex<T>::operator!= (const T n) {
-    return !((*this)==n);
+    return !((*this) == n);
 }
 
 template <typename T>
 bool Complex<T>::operator!= (const Complex<T>& z) {
-    return !((*this)==z);
+    return !((*this) == z);
+}
+
+/* += OPERATOR */
+template <typename T>
+Complex<T>& Complex<T>::operator+= (const T n) {
+    this->re += n;
+    return *this;
+}
+
+template <typename T>
+Complex<T>& Complex<T>::operator+= (const Complex<T>& z) {
+    this->re += z.re;
+    this->im += z.im;
+    return *this;
+}
+
+/* -= OPERATOR */
+template <typename T>
+Complex<T>& Complex<T>::operator-= (const T n) {
+    this->re -= n;
+    return *this;
+}
+
+template <typename T>
+Complex<T>& Complex<T>::operator-= (const Complex<T>& z) {
+    this->re -= z.re;
+    this->im -= z.im;
+    return *this;
+}
+
+/* *= OPERATOR */
+template <typename T>
+Complex<T>& Complex<T>::operator*= (const T n) {
+    this->re *= n;
+    this->im *= n;
+    return *this;
+}
+
+template <typename T>
+Complex<T>& Complex<T>::operator*= (const Complex<T>& z) {
+    T re_part, im_part;
+    re_part = this->re * z.re - this->im * z.im;
+    im_part = this->re * z.im + this->im * z.re;
+    this->re = re_part;
+    this->im = im_part;
+    return *this;
+}
+
+/* /= OPERATOR */
+template <typename T>
+Complex<T>& Complex<T>::operator/= (const T n) {
+    this->re /= n;
+    this->im /= n;
+    return *this;
+}
+
+template <typename T>
+Complex<T>& Complex<T>::operator/= (Complex<T>& z) {
+    double mag = pow(z.mod(), 2);
+    T re_part, im_part;
+    re_part = (this->re * z.re + this->im * z.im) / mag;
+    im_part = (this->im * z.re - this->re * z.im) / mag;
+    this->re = re_part;
+    this->im = im_part;
+    return *this;
 }
 #endif
