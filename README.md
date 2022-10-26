@@ -58,3 +58,29 @@ int main() {
 	return 0;
 }
 ```
+
+# Steps for contribution
+Please the following steps to contribute into the repo: -
+
+- Star and Fork the repository
+- Go to your forked repository and clone it to your local system
+```
+git clone https://github.com/<YOUR-USERNAME>/complex-number-cpp.git
+```
+
+- Make the changes which you want to contribute. It may include any new features, possible bug fixes or adding documentation
+
+- Commit the changes to your local repository
+```
+git commit -m "<replace this with a good commit message>"
+```
+
+- Push the changes to your fork of the repo
+```
+git push origin
+```
+
+- Go to your fork github repo and click on contribute button and create a pull request.
+- Your pull request will get accepted if it is not spam (like one liner change, fixing whitespaces, etc)
+
+HAPPY CODING!!!
