@@ -19,21 +19,62 @@ public:
     //CONSTRUCTOR
 
     Complex(); // construction with no argument. (0+0i)
-    Complex(const T re_part, const T im_part); //construction with real and imaginary part as argument
-    Complex(const Complex<T>& z); //construction  with another complex number which maybe of another type (type casting will be done)
-    //DECONSTRUCTOR
+    /**
+    * @brief construction with real and imaginary part as argument
+    * @param re_part real part
+    * @param im_part imaginary part
+    */
+    Complex(const T re_part, const T im_part);
+    /**
+    * @brief construction  with another complex number which maybe of another type (type casting will be done)
+    * @param z complex object
+    */
+    Complex(const Complex<T>& z); 
+    /**
+    * @brief destroy the created objects (decontructor)
+    */
     ~Complex();
 
     //FUNCTIONS
 
     // Let z be a complex number
-
-    Complex<T> conjugate(); //returns x - iy if z = x + iy
-    double mag(); //returns square_root(x*x + y*y) if z = x + iy
-    double arg(); //returns argument of complex number z. (angle made by it with real-axis on complex plane)
-    Complex<T> power(const int n); //returns z^n
-    T real(); //returns x if z = x + iy
-    T imag(); //returns y if z = x + iy
+    
+    /**
+    * @brief Used to return conjugate of the given complex number.
+    * @return x - iy if z = x + iy.
+    */
+    Complex<T> conjugate();
+    
+    /**
+    * @brief Used to return the square root of the given complex number.
+    * @return square_root(x*x + y*y) if z = x + iy.
+    */
+    double mag();
+    
+    /**
+    * @brief Used to return argument i.e angle made by complex no z on complex plane.
+    * @return argument of complex number z.
+    */
+    double arg();
+    
+    /**
+    * @brief Used to return z^n.
+    * @param n power_number
+    * @return z^n.
+    */
+    Complex<T> power(const int n); 
+    
+    /**
+    * @brief Used to return real part of complex number.
+    * @return x if z = x + iy.
+    */
+    T real(); //returns 
+    
+    /**
+    * @brief Used to return imaginary part of complex number.
+    * @return  y if z = x + iy.
+    */
+    T imag(); 
 
     // //OPERATORS
 
@@ -56,15 +97,56 @@ public:
         }
         return out;
     }
-
-    Complex<T> operator+ (const Complex<T>& z); // addition with another complex number
-    Complex<T> operator+ (const T n); //addition with real number
-    Complex<T> operator- (const Complex<T>& z); // subtraction with another complex number
-    Complex<T> operator- (const T n); //subtraction with real number
-    Complex<T> operator* (const Complex<T>& z); // multiplication with another complex number
-    Complex<T> operator* (const T n); //multiplication with real number
-    Complex<T> operator/ (Complex<T>& z); // division with another complex number
-    Complex<T> operator/ (const T n); //division with real number
+    
+    /**
+    * @brief addition of z with another complex number.
+    * @param z complex object.
+    * @return addition owith another complex number.
+    */
+    Complex<T> operator+ (const Complex<T>& z); 
+    
+    /**
+    * @brief addition with real number.
+    * @param n real number.
+    */
+    Complex<T> operator+ (const T n); 
+    
+    /**
+    * @brief subtraction with another complex number.
+    * @param z complex object.
+    */
+    Complex<T> operator- (const Complex<T>& z); 
+    
+    /**
+    * @brief subtraction with real number.
+    * @param n real number.
+    */
+    Complex<T> operator- (const T n); 
+    
+    /**
+    * @briefmultiplication with another complex number
+    * @param z complex object
+    */
+    Complex<T> operator* (const Complex<T>& z); 
+    
+    /**
+    * @brief multiplication with real number
+    * @param n real number
+    */
+    Complex<T> operator* (const T n); 
+    
+    /**
+    * @brief division with another complex number
+    * @param z complex object
+    */
+    Complex<T> operator/ (Complex<T>& z); // 
+    
+    /**
+    * @brief division with real number
+    * @param n real number
+    */
+    Complex<T> operator/ (const T n); //
+    
     bool operator== (const Complex<T>& z); // == operator with another complex number
     bool operator== (const T n); // == operator with real number
     bool operator!= (const Complex<T>& z); // != operator with another complex number
